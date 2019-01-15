@@ -40,6 +40,7 @@ module.exports = {
   },
   module: {
     rules: [
+      // 想要关闭严格提示，酒吧下面这行代码给注掉
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
