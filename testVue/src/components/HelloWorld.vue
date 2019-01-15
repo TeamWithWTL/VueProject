@@ -52,7 +52,6 @@
           href="http://router.vuejs.org/"
           target="_blank"
         >
-          vue-router
         </a>
       </li>
       <li>

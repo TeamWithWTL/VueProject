@@ -31,7 +31,7 @@
   <div class="layout">
     <Layout>
       <Header>
-        <Menu mode="horizontal" theme="dark" active-name="1" v-on:on-select="lala($event)">
+        <Menu mode="horizontal" theme="dark" active-name="1" v-on:on-select="selectnav($event)">
           <div id="title" class="layout-logo">智能巡检系统</div>
           <div class="layout-nav" >
             <MenuItem v-bind:key="nav.key" v-for="nav in navlist" v-bind:name="nav.key">
@@ -42,7 +42,7 @@
         </Menu>
       </Header>
       <Layout>
-        <Sider hide-trigger :style="{background: '#fff'}">
+        <Sider hide-trigger :style="{background: '#fff', minHeight: '80vh'}">
           <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" >
             <!-- 遍历读取到的测导航栏的数据 -->
             <div v-for="array in sublist" :key="array.id">
@@ -69,21 +69,21 @@
             <BreadcrumbItem>Components</BreadcrumbItem>
             <BreadcrumbItem>Layout</BreadcrumbItem>
           </Breadcrumb>
-          <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">Content</Content>
+          <Content :style="{padding: '24px', minHeight: '70vh', background: '#fff'}">content</Content>
         </Layout>
       </Layout>
     </Layout>
   </div>
 </template>
 <script>
+// 模拟的数据有了后端就没用了
 import navdata from './mock/navmock.js'
 
 export default {
   data: () => {
     return {
       navlist: [], // 顶部导航栏数据
-      sublist: [], // 测导航栏数据
-      name: ''
+      sublist: [] // 测导航栏数据
     }
   },
   methods: {
@@ -93,10 +93,9 @@ export default {
     },
     // 动态添加测导航栏的数据
     AddSubList (sub) {
-      console.log(sub)
+      // 判断上导航栏的点击
       if (sub === 'basedata') {
         this.sublist = navdata.basedata
-        console.log(name)
       }
       if (sub === 'ledge') {
         this.sublist = navdata.ledge
@@ -105,18 +104,16 @@ export default {
         this.sublist = navdata.together
       }
     },
-    lala (name) {
-      console.log(name)
-      this.AddSubList(name)
+    // 点击获取名字
+    selectnav (sub) {
+      // 通过获取的名字为左侧导航栏赋值
+      this.AddSubList(sub)
     }
   },
   created: function () {
     this.AddNavList()
+    // 给左侧导航栏赋初试值
     this.AddSubList('basedata')
-  },
-  evil: function (fn) {
-    var Fn = Function// 一个变量指向Function，防止有些前端编译工具报错
-    return new Fn('return ' + fn)()
   }
 }
 </script>
