@@ -6,7 +6,7 @@ const navdata = Mock.mock({
   ]
 })
 const submenu = Mock.mock({
-  'array|3-10': [{
+  'array|5': [{
     'submenu|3-10': {
       'name': '@string("lower", 5, 10)',
       'ischild': '@boolean',
@@ -14,7 +14,70 @@ const submenu = Mock.mock({
     }
   }]
 })
+const navdatas = Mock.mock([
+  {'key': 'basedata', 'value': '基础数据'},
+  {'key': 'ledge', 'value': '台账'},
+  {'key': 'together', 'value': '协同工作'}
+])
+const basedata = Mock.mock(
+  [{
+    'name': '楼宇',
+    'ischild': true,
+    'child': [
+      '一号楼', '二号楼', '三号楼'
+    ]
+  },
+  {
+    'name': '小区',
+    'ischild': false
+  },
+  {
+    'name': '随便写了',
+    'ischild': false
+  }
+  ]
+)
+const ledge = Mock.mock(
+  [{
+    'name': '楼宇1',
+    'ischild': true,
+    'child': [
+      '一号楼1', '二号楼1', '三号楼1'
+    ]
+  },
+  {
+    'name': '小区1',
+    'ischild': false
+  },
+  {
+    'name': '随便写了1',
+    'ischild': false
+  }
+  ]
+)
+const together = Mock.mock(
+  [{
+    'name': '楼宇2',
+    'ischild': true,
+    'child': [
+      '一号楼2', '二号楼2', '三号楼2'
+    ]
+  },
+  {
+    'name': '小区2',
+    'ischild': false
+  },
+  {
+    'name': '随便写了2',
+    'ischild': false
+  }
+  ]
+)
 export default {
   navdata,
-  submenu
+  submenu,
+  navdatas,
+  basedata,
+  ledge,
+  together
 }

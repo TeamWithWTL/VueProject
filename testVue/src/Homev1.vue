@@ -31,12 +31,12 @@
   <div class="layout">
     <Layout>
       <Header>
-        <Menu mode="horizontal" theme="dark" active-name="1">
+        <Menu mode="horizontal" theme="dark" active-name="1" v-on:on-select="lala($event)">
           <div id="title" class="layout-logo">智能巡检系统</div>
-          <div class="layout-nav">
-            <MenuItem v-bind:key="nav.id" v-for="nav in navlist" v-bind:name="nav">
+          <div class="layout-nav" >
+            <MenuItem v-bind:key="nav.key" v-for="nav in navlist" v-bind:name="nav.key">
               <Icon type="ios-navigate"></Icon>
-              {{nav}}
+              {{nav.value}}
             </MenuItem>
           </div>
         </Menu>
@@ -47,12 +47,12 @@
             <!-- 遍历读取到的测导航栏的数据 -->
             <div v-for="array in sublist" :key="array.id">
               <!-- 判断是否存在下拉选，如果存在则添加下拉选的按钮 -->
-                <Submenu v-if="array.submenu.ischild" :name="array.submenu.name" :key="array.submenu.id">
+                <Submenu v-if="array.ischild" :name="array.name" :key="array.id">
                   <template slot="title">
-                    <Icon type="ios-navigate"></Icon>{{array.submenu.name}}
+                    <Icon type="ios-navigate"></Icon>{{array.name}}
                   </template>
                   <!-- 下拉选里的选项 -->
-                  <MenuItem :key="sub.id" :name="sub" v-for="sub in array.submenu.child.child" >
+                  <MenuItem :key="sub.id" :name="sub" v-for="sub in array.child" >
                     {{sub}}
                   </MenuItem>
                 </Submenu>
@@ -82,22 +82,40 @@ export default {
   data: () => {
     return {
       navlist: [], // 顶部导航栏数据
-      sublist: {}// 测导航栏数据
+      sublist: [], // 测导航栏数据
+      name: ''
     }
   },
   methods: {
     // 动态添加导航栏的数据
     AddNavList () {
-      this.navlist = navdata.navdata.nav
+      this.navlist = navdata.navdatas
     },
     // 动态添加测导航栏的数据
-    AddSubList () {
-      this.sublist = navdata.submenu.array
+    AddSubList (sub) {
+      if (name === 'basedata') {
+        this.sublist = navdata.basedata
+        console.log(name)
+      }
+      if (name === 'ledge') {
+        this.sublist = navdata.ledge
+      }
+      if (name === 'together') {
+        this.sublist = navdata.together
+      }
+    },
+    lala (name) {
+      console.log(name)
+      this.AddSubList(name)
     }
   },
   created: function () {
     this.AddNavList()
-    this.AddSubList()
+    this.AddSubList('basedata')
+  },
+  evil: function (fn) {
+    var Fn = Function// 一个变量指向Function，防止有些前端编译工具报错
+    return new Fn('return ' + fn)()
   }
 }
 </script>
