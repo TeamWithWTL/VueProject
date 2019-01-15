@@ -44,13 +44,19 @@
       <Layout>
         <Sider hide-trigger :style="{background: '#fff'}">
           <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" >
+            <!-- 遍历读取到的测导航栏的数据 -->
             <div v-for="array in sublist" :key="array.id">
+              <!-- 判断是否存在下拉选，如果存在则添加下拉选的按钮 -->
                 <Submenu v-if="array.submenu.ischild" :name="array.submenu.name" :key="array.submenu.id">
                   <template slot="title">
                     <Icon type="ios-navigate"></Icon>{{array.submenu.name}}
                   </template>
-                  <MenuItem :key="sub.id" :name="sub" v-for="sub in array.submenu.child.child" >{{sub}}</MenuItem>
+                  <!-- 下拉选里的选项 -->
+                  <MenuItem :key="sub.id" :name="sub" v-for="sub in array.submenu.child.child" >
+                    {{sub}}
+                  </MenuItem>
                 </Submenu>
+                <!-- 没有下拉选的按钮 -->
                 <MenuItem v-else :name="array.submenu.name">
                   {{array.submenu.name}}
                 </MenuItem>
@@ -75,14 +81,16 @@ import navdata from './mock/navmock.js'
 export default {
   data: () => {
     return {
-      navlist: [],
-      sublist: {}
+      navlist: [], // 顶部导航栏数据
+      sublist: {}// 测导航栏数据
     }
   },
   methods: {
+    // 动态添加导航栏的数据
     AddNavList () {
       this.navlist = navdata.navdata.nav
     },
+    // 动态添加测导航栏的数据
     AddSubList () {
       this.sublist = navdata.submenu.array
     }
