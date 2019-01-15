@@ -57,8 +57,8 @@
                   </MenuItem>
                 </Submenu>
                 <!-- 没有下拉选的按钮 -->
-                <MenuItem v-else :name="array.submenu.name">
-                  {{array.submenu.name}}
+                <MenuItem v-else :name="array.name">
+                  {{array.name}}
                 </MenuItem>
             </div>
           </Menu>
@@ -93,14 +93,15 @@ export default {
     },
     // 动态添加测导航栏的数据
     AddSubList (sub) {
-      if (name === 'basedata') {
+      console.log(sub)
+      if (sub === 'basedata') {
         this.sublist = navdata.basedata
         console.log(name)
       }
-      if (name === 'ledge') {
+      if (sub === 'ledge') {
         this.sublist = navdata.ledge
       }
-      if (name === 'together') {
+      if (sub === 'together') {
         this.sublist = navdata.together
       }
     },
